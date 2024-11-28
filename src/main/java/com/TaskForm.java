@@ -1,69 +1,46 @@
 package com;
 
-import com.Task;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import java.util.function.Consumer;
 
 public class TaskForm {
-
-    private final Consumer<Task> onTaskCreated;
-
     public TaskForm(Consumer<Task> onTaskCreated) {
-        this.onTaskCreated = onTaskCreated;
-    }
-
-    public void display() {
         Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Add New Task");
 
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10));
-        grid.setHgap(10);
-        grid.setVgap(10);
-
-        // Title
-        Label titleLabel = new Label("Title:");
+        GridPane layout = new GridPane();
+        layout.setPadding(new Insets(10));
+        layout.setHgap(10);
+        layout.setVgap(10);
         TextField titleInput = new TextField();
-        titleInput.setPromptText("Enter task title");
-        grid.add(titleLabel, 0, 0);
-        grid.add(titleInput, 1, 0);
+        titleInput.setPromptText("Title");
 
-        // Description
-        Label descriptionLabel = new Label("Description:");
         TextArea descriptionInput = new TextArea();
-        descriptionInput.setPromptText("Enter task description");
-        descriptionInput.setPrefRowCount(3);
-        grid.add(descriptionLabel, 0, 1);
-        grid.add(descriptionInput, 1, 1);
+        descriptionInput.setPromptText("Description");
 
-        // Color Picker
-        Label colorLabel = new Label("Color:");
-        ColorPicker colorPicker = new ColorPicker();
-        grid.add(colorLabel, 0, 2);
-        grid.add(colorPicker, 1, 2);
+        ComboBox<String> colorPicker = new ComboBox<>();
+        colorPicker.getItems().addAll("Red", "Green", "Blue", "Yellow");
+        colorPicker.setValue("Red");
 
-        // Due Date
-        Label dueDateLabel = new Label("Due Date:");
         DatePicker dueDatePicker = new DatePicker();
-        grid.add(dueDateLabel, 0, 3);
-        grid.add(dueDatePicker, 1, 3);
 
-        // Save Button
         Button saveButton = new Button("Save");
         saveButton.setOnAction(e -> {
             String title = titleInput.getText();
             String description = descriptionInput.getText();
-            String color = colorPicker.getValue().toString(); // Convert color to string
+            String color = colorPicker.getValue();
             String dueDate = dueDatePicker.getValue() != null ? dueDatePicker.getValue().toString() : "No Date";
 
             if (!title.isEmpty()) {
                 Task task = new Task(title, description, color, dueDate);
-                onTaskCreated.accept(task); // Add the task to the list
-                TaskManager.getInstance().addTask(task); // Save the task to TaskManager (persistent)
+                onTaskCreated.accept(task);
                 stage.close();
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING, "Title is required!");
@@ -71,10 +48,21 @@ public class TaskForm {
             }
         });
 
-        grid.add(saveButton, 1, 4);
+        Button cancelButton = new Button("Cancel");
+        cancelButton.setOnAction(e -> stage.close());
 
-        Scene scene = new Scene(grid, 400, 300);
-        stage.setScene(scene);
+        layout.add(new Label("Title:"), 0, 0);
+        layout.add(titleInput, 1, 0);
+        layout.add(new Label("Description:"), 0, 1);
+        layout.add(descriptionInput, 1, 1);
+        layout.add(new Label("Color:"), 0, 2);
+        layout.add(colorPicker, 1, 2);
+        layout.add(new Label("Due Date:"), 0, 3);
+        layout.add(dueDatePicker, 1, 3);
+        layout.add(saveButton, 0, 4);
+        layout.add(cancelButton, 1, 4);
+
+        stage.setScene(new Scene(layout, 580, 300));
         stage.show();
     }
 }

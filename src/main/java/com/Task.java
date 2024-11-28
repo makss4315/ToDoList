@@ -1,62 +1,19 @@
 package com;
 
-import java.io.Serializable;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
-public class Task implements Serializable {
-    private String title;
-    private String description;
-    private String color;
-    private String dueDate;
-
-    // Конструктор
+public class Task extends HBox {
     public Task(String title, String description, String color, String dueDate) {
-        this.title = title;
-        this.description = description;
-        this.color = color;
-        this.dueDate = dueDate;
-    }
+        super(10);
 
-    // Геттеры
-    public String getTitle() {
-        return title;
-    }
+        // Color indicator
+        Rectangle colorBox = new Rectangle(10, 10, Color.valueOf(color.toLowerCase()));
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public String getDueDate() {
-        return dueDate;
-    }
-
-    // Сеттеры (если потребуется изменять данные)
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", color='" + color + '\'' +
-                ", dueDate='" + dueDate + '\'' +
-                '}';
+        // Task info
+        Label taskInfo = new Label(title + " (Due: " + dueDate + ")");
+        this.getChildren().addAll(colorBox, taskInfo);
     }
 }
