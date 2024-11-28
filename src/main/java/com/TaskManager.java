@@ -1,46 +1,23 @@
 package com;
 
-import java.util.ArrayList;
-import java.util.List;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 
 public class TaskManager {
-    private static TaskManager instance; // Единственный экземпляр
-    private List<Task> tasks; // Список задач
+    private final VBox layout;
+    private final ListView<Task> taskList;
 
-    // Приватный конструктор для Singleton
-    private TaskManager() {
-        tasks = new ArrayList<>();
+    public TaskManager() {
+        layout = new VBox(10);
+        taskList = new ListView<>();
+
+        Button addTaskButton = new Button("Add New Task");
+        addTaskButton.setOnAction(e -> new TaskForm(task -> taskList.getItems().add(task)));
+
+        layout.getChildren().addAll(taskList, addTaskButton);
     }
 
-    // Метод для получения экземпляра класса (Singleton)
-    public static TaskManager getInstance() {
-        if (instance == null) {
-            instance = new TaskManager();
-        }
-        return instance;
-    }
-
-    // Метод для добавления задачи
-    public void addTask(Task task) {
-        tasks.add(task);
-    }
-
-    // Метод для получения всех задач
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    // Метод для удаления задачи (по индексу)
-    public void removeTask(int index) {
-        if (index >= 0 && index < tasks.size()) {
-            tasks.remove(index);
-        }
-    }
-
-    // Метод для обновления задачи
-    public void updateTask(int index, Task updatedTask) {
-        if (index >= 0 && index < tasks.size()) {
-            tasks.set(index, updatedTask);
-        }
+    public VBox getView() {
+        return layout;
     }
 }

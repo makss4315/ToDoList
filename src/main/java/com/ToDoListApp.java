@@ -15,7 +15,7 @@ public class ToDoListApp extends Application {
         root.setCenter(taskBoard.getView());
 
         primaryStage.setTitle("To-Do List");
-        primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.setScene(new Scene(root, 1100, 550));
         primaryStage.show();
     }
 

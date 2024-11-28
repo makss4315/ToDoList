@@ -1,22 +1,38 @@
 package com;
 
-import java.io.Serializable;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
-public class Task implements Serializable {
-    private String title;
-    private String description;
-    private String color;
-    private String dueDate;
+public class Task extends HBox {
+    private final String title;
+    private final String description;
+    private final String color;
+    private final String dueDate;
 
-    // Конструктор
     public Task(String title, String description, String color, String dueDate) {
+        super(10);
         this.title = title;
         this.description = description;
         this.color = color;
         this.dueDate = dueDate;
+
+        // Color indicator
+        Rectangle colorBox = new Rectangle(10, 10, Color.valueOf(color.toLowerCase()));
+
+        // Task info
+        Label taskInfo = new Label(title + " (Due: " + dueDate + ")");
+        this.getChildren().addAll(colorBox, taskInfo);
+
+        // Add double-click action
+        this.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                new TaskDetailsForm(this, () -> this.setManaged(false));
+            }
+        });
     }
 
-    // Геттеры
     public String getTitle() {
         return title;
     }
@@ -31,32 +47,5 @@ public class Task implements Serializable {
 
     public String getDueDate() {
         return dueDate;
-    }
-
-    // Сеттеры (если потребуется изменять данные)
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", color='" + color + '\'' +
-                ", dueDate='" + dueDate + '\'' +
-                '}';
     }
 }
