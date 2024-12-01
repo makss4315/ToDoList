@@ -14,16 +14,12 @@ public class ToDoListApp extends Application {
         BorderPane root = new BorderPane();
 
         TaskBoard taskBoard = new TaskBoard();
-
-
         StackPane scalableContainer = new StackPane(taskBoard.getView());
         Scale scale = new Scale(1, 1);
         scalableContainer.getTransforms().add(scale);
 
-
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(400);
-
 
         root.widthProperty().addListener((obs, oldWidth, newWidth) -> {
             double scaleX = newWidth.doubleValue() / 1100;

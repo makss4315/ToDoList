@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.util.function.Consumer;
 
 public class TaskForm {
-    public TaskForm(Consumer<Task> onTaskCreated) {
+    public TaskForm(Consumer<Task> onTaskCreated, TaskBoard taskBoard) {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Add New Task");
@@ -19,6 +19,7 @@ public class TaskForm {
         layout.setPadding(new Insets(10));
         layout.setHgap(10);
         layout.setVgap(10);
+
         TextField titleInput = new TextField();
         titleInput.setPromptText("Title");
 
@@ -39,7 +40,7 @@ public class TaskForm {
             String dueDate = dueDatePicker.getValue() != null ? dueDatePicker.getValue().toString() : "No Date";
 
             if (!title.isEmpty()) {
-                Task task = new Task(title, description, color, dueDate);
+                Task task = new Task(title, description, color, dueDate, taskBoard);
                 onTaskCreated.accept(task);
                 stage.close();
             } else {

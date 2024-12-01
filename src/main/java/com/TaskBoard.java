@@ -3,29 +3,36 @@ package com;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TaskBoard {
     private final HBox columns;
+    private final List<TaskColumn> columnsList;
 
     public TaskBoard() {
-        columns = new HBox(10);
+        columnsList = new ArrayList<>();
+        columnsList.add(new TaskColumn("Backlog", this));
+        columnsList.add(new TaskColumn("To Do", this));
+        columnsList.add(new TaskColumn("In Progress", this));
+        columnsList.add(new TaskColumn("Done", this));
 
-        // Отступ слева
+        columns = new HBox(10);
         Region spacer = new Region();
         spacer.setMinWidth(50);
-
-        // Колонки доски задач
         columns.getChildren().add(spacer);
-        columns.getChildren().add(new TaskColumn("Backlog"));
-        columns.getChildren().add(new TaskColumn("To Do"));
-        columns.getChildren().add(new TaskColumn("In Progress"));
-        columns.getChildren().add(new TaskColumn("Done"));
+        columns.getChildren().addAll(columnsList);
+    }
 
-
-        columns.setMinWidth(1100);
-        columns.setMinHeight(550);
+    public List<TaskColumn> getColumns() {
+        return columnsList;
     }
 
     public HBox getView() {
         return columns;
+    }
+
+    public void updateView() {
+        columns.requestLayout();
     }
 }
