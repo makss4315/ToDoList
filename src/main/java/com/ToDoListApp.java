@@ -3,8 +3,8 @@ package com;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 public class ToDoListApp extends Application {
@@ -15,18 +15,29 @@ public class ToDoListApp extends Application {
 
         TaskBoard taskBoard = new TaskBoard();
 
-        // Создаём контейнер VBox для масштабирования
-        VBox container = new VBox();
-        container.getChildren().add(taskBoard.getView());
-        VBox.setVgrow(taskBoard.getView(), Priority.ALWAYS);
 
-        root.setCenter(container);
+        StackPane scalableContainer = new StackPane(taskBoard.getView());
+        Scale scale = new Scale(1, 1);
+        scalableContainer.getTransforms().add(scale);
 
+
+        primaryStage.setMinWidth(600);
+        primaryStage.setMinHeight(400);
+
+
+        root.widthProperty().addListener((obs, oldWidth, newWidth) -> {
+            double scaleX = newWidth.doubleValue() / 1100;
+            scale.setX(Math.max(scaleX, 0.5));
+        });
+
+        root.heightProperty().addListener((obs, oldHeight, newHeight) -> {
+            double scaleY = newHeight.doubleValue() / 550;
+            scale.setY(Math.max(scaleY, 0.5));
+        });
+
+        root.setCenter(scalableContainer);
 
         Scene scene = new Scene(root, 1100, 550);
-        scene.widthProperty().addListener((obs, oldWidth, newWidth) -> taskBoard.getView().setPrefWidth(newWidth.doubleValue() - 20));
-        scene.heightProperty().addListener((obs, oldHeight, newHeight) -> taskBoard.getView().setPrefHeight(newHeight.doubleValue() - 20));
-
         primaryStage.setTitle("To-Do List");
         primaryStage.setScene(scene);
         primaryStage.show();
