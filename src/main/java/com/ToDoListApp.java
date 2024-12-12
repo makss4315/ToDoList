@@ -3,8 +3,6 @@ package com;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 public class ToDoListApp extends Application {
@@ -13,25 +11,12 @@ public class ToDoListApp extends Application {
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
 
-        TaskBoard taskBoard = new TaskBoard();
-        StackPane scalableContainer = new StackPane(taskBoard.getView());
-        Scale scale = new Scale(1, 1);
-        scalableContainer.getTransforms().add(scale);
+        TaskBoard taskBoard = new TaskBoard(); // Создаем TaskBoard
 
-        primaryStage.setMinWidth(600);
-        primaryStage.setMinHeight(400);
+        // Сохраняем задачи при выходе из приложения
+        primaryStage.setOnCloseRequest(event -> taskBoard.saveTasks());
 
-        root.widthProperty().addListener((obs, oldWidth, newWidth) -> {
-            double scaleX = newWidth.doubleValue() / 1100;
-            scale.setX(Math.max(scaleX, 0.5));
-        });
-
-        root.heightProperty().addListener((obs, oldHeight, newHeight) -> {
-            double scaleY = newHeight.doubleValue() / 550;
-            scale.setY(Math.max(scaleY, 0.5));
-        });
-
-        root.setCenter(scalableContainer);
+        root.setCenter(taskBoard.getView()); // Добавляем TaskBoard в интерфейс
 
         Scene scene = new Scene(root, 1100, 550);
         primaryStage.setTitle("To-Do List");
@@ -40,6 +25,6 @@ public class ToDoListApp extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+        launch(args); // Запуск JavaFX-приложения
     }
 }

@@ -30,7 +30,7 @@ public class Task extends HBox {
                         this,
                         taskBoard.getColumns(),
                         () -> removeTaskFromCurrentColumn(),
-                        () -> taskBoard.updateView()
+                        () -> {}
                 );
             }
         });
