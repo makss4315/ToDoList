@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 public class TaskStorage {
-    private static final String FILE_PATH = "tasks.json"; // Путь для файла
+    private static final String FILE_PATH = "tasks.json";
 
     // Сохраняет задачи в файл
     public static void saveTasks(Map<String, List<TaskData>> columns) {
         Gson gson = new Gson();
         try (Writer writer = new FileWriter(FILE_PATH)) {
-            gson.toJson(columns, writer); // Сериализация в JSON
+            gson.toJson(columns, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -27,10 +27,10 @@ public class TaskStorage {
     public static Map<String, List<TaskData>> loadTasks() {
         File file = new File(FILE_PATH);
 
-        // Если файл не существует, создаем его с пустым содержимым
+
         if (!file.exists()) {
             createNewFile();
-            return new HashMap<>(); // Возвращаем пустую структуру
+            return new HashMap<>();
         }
 
 

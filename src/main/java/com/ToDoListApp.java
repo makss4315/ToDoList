@@ -11,12 +11,12 @@ public class ToDoListApp extends Application {
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
 
-        TaskBoard taskBoard = new TaskBoard(); // Создаем TaskBoard
+        TaskBoard taskBoard = new TaskBoard();
 
         // Сохраняем задачи при выходе из приложения
         primaryStage.setOnCloseRequest(event -> taskBoard.saveTasks());
 
-        root.setCenter(taskBoard.getView()); // Добавляем TaskBoard в интерфейс
+        root.setCenter(taskBoard.getView());
 
         Scene scene = new Scene(root, 1100, 550);
         primaryStage.setTitle("To-Do List");
@@ -25,6 +25,6 @@ public class ToDoListApp extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args); // Запуск JavaFX-приложения
+        launch(args);
     }
 }
