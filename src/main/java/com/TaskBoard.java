@@ -1,7 +1,7 @@
 package com;
 
-import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
+import javafx.scene.transform.Scale;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,11 +27,18 @@ public class TaskBoard {
 
     // Метод для получения отображения всех колонок
     public HBox getView() {
-        HBox hbox = new HBox(10);
-        hbox.setPadding(new Insets(30, 10, 10, 30));// Расстояние между колонками
+        HBox hbox = new HBox(10); // Расстояние между колонками
+        hbox.setPrefWidth(1100); // Ограничиваем ширину контейнера
+        hbox.setMaxWidth(Double.MAX_VALUE); // Для масштабирования
+        hbox.setStyle("-fx-background-color: #f0f0f0; -fx-padding: 10px;"); // Добавляем стиль
+
         for (TaskColumn column : columnsList) {
             hbox.getChildren().add(column); // Добавляем каждую колонку в HBox
         }
+
+        // Добавление масштабирования для TaskBoard
+        Scale scale = new Scale(1, 1);
+        hbox.getTransforms().add(scale);
         return hbox;
     }
 
@@ -54,7 +61,6 @@ public class TaskBoard {
         for (TaskColumn column : columnsList) {
             List<TaskData> tasks = columnData.getOrDefault(column.getTitle(), new ArrayList<>());
             for (TaskData data : tasks) {
-                // Используем публичные поля напрямую, так как мы не используем геттеры
                 Task task = new Task(data.title, data.description, data.color, data.dueDate, this);
                 column.getTaskList().getItems().add(task);
             }
