@@ -1,5 +1,6 @@
 package com;
 
+import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
@@ -26,7 +27,8 @@ public class TaskBoard {
 
     // Метод для получения отображения всех колонок
     public HBox getView() {
-        HBox hbox = new HBox(10); // Расстояние между колонками
+        HBox hbox = new HBox(10);
+        hbox.setPadding(new Insets(30, 10, 10, 30));// Расстояние между колонками
         for (TaskColumn column : columnsList) {
             hbox.getChildren().add(column); // Добавляем каждую колонку в HBox
         }
