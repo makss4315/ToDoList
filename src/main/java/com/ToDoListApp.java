@@ -21,13 +21,13 @@ public class ToDoListApp extends Application {
 
         // Обновление масштаба при изменении размеров окна
         primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double scaleValue = Math.min(newVal.doubleValue() / 1100, primaryStage.getHeight() / 550); // Учет пропорций
+            double scaleValue = Math.min(newVal.doubleValue() / 1280, primaryStage.getHeight() / 720); // Учет пропорций
             scale.setX(scaleValue);
             scale.setY(scaleValue);
         });
 
         primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double scaleValue = Math.min(newVal.doubleValue() / 550, primaryStage.getWidth() / 1100); // Учет пропорций
+            double scaleValue = Math.min(newVal.doubleValue() / 720, primaryStage.getWidth() / 1280); // Учет пропорций
             scale.setX(scaleValue);
             scale.setY(scaleValue);
         });
@@ -36,7 +36,7 @@ public class ToDoListApp extends Application {
 
         root.setCenter(taskBoard.getView()); // Добавляем TaskBoard в интерфейс
 
-        Scene scene = new Scene(root, 1100, 550);
+        Scene scene = new Scene(root, 1280, 720);
         primaryStage.setTitle("To-Do List");
         primaryStage.setScene(scene);
         primaryStage.show();
