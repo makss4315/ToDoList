@@ -37,23 +37,30 @@ public class TaskBoard {
         // Основное содержимое
         HBox hbox = new HBox(15); // Расстояние между колонками
         hbox.setPadding(new Insets(20));
-        hbox.setStyle("-fx-background-color: #ffffff;");
+        hbox.setStyle("-fx-background-color: #f9f9f9; -fx-border-color: #cccccc; -fx-border-width: 2px; -fx-border-radius: 10px;");
 
         for (TaskColumn column : columnsList) {
-            hbox.getChildren().add(column); // Добавляем каждую колонку в HBox
+            VBox columnContainer = new VBox();
+            columnContainer.setStyle("-fx-background-color: #ffffff; -fx-border-color: #dddddd; -fx-border-radius: 8px; -fx-padding: 10px; -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.1), 8, 0, 0, 4);");
+            columnContainer.getChildren().add(column);
+            hbox.getChildren().add(columnContainer); // Добавляем каждую колонку в HBox
         }
 
         // Заголовок приложения
         Label title = new Label("To-Do List Application");
-        title.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-        title.setTextFill(Color.web("#333333"));
-        title.setPadding(new Insets(10));
+        title.setFont(Font.font("Verdana", FontWeight.BOLD, 28));
+        title.setTextFill(Color.web("#444444"));
+        title.setPadding(new Insets(20));
+        title.setStyle("-fx-background-color: #eeeeee; -fx-border-color: #cccccc; -fx-border-radius: 10px; -fx-padding: 10px;");
+
+        HBox header = new HBox(10, title);
+        header.setPadding(new Insets(10));
 
         // Общий контейнер
         BorderPane root = new BorderPane();
-        root.setTop(title);
+        root.setTop(header);
         root.setCenter(hbox);
-        BorderPane.setMargin(title, new Insets(10));
+        BorderPane.setMargin(header, new Insets(10));
 
         return root;
     }
