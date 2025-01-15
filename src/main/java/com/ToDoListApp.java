@@ -2,9 +2,9 @@ package com;
 
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class ToDoListApp extends Application {
@@ -17,18 +17,24 @@ public class ToDoListApp extends Application {
         BorderPane content = new BorderPane();
         content.setCenter(taskBoard.getView()); // Добавляем TaskBoard в центр
 
-        // Создаем StackPane для выравнивания содержимого по центру
+        // Обертка с отступами и выравниванием
+        HBox wrapper = new HBox();
+        wrapper.setPadding(new Insets(20)); // Отступы со всех сторон
+        wrapper.setSpacing(20); // Расстояние между колонками
+        wrapper.setStyle("-fx-background-color: #F4F4F4;"); // Для проверки фона (можно удалить)
+        wrapper.getChildren().add(content);
+        wrapper.setAlignment(javafx.geometry.Pos.CENTER); // Центрирование содержимого
+
+        // Создаем StackPane для центрирования содержимого относительно окна
         StackPane root = new StackPane();
-        root.getChildren().add(content);
+        root.getChildren().add(wrapper);
 
         // Создаем сцену
         Scene scene = new Scene(root, 1280, 720);
 
-        // Устанавливаем минимальные и максимальные размеры окна
+        // Устанавливаем минимальные размеры окна
         primaryStage.setMinWidth(1280);
         primaryStage.setMinHeight(720);
-        primaryStage.setMaxWidth(1920);
-        primaryStage.setMaxHeight(1080);
 
         // Пропорциональное масштабирование
         content.scaleXProperty().bind(Bindings.createDoubleBinding(
