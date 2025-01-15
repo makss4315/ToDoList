@@ -19,6 +19,7 @@ public class TaskBoard {
     private final List<TaskColumn> columnsList;
 
     public TaskBoard() {
+
         columnsList = new ArrayList<>();
         columnsList.add(new TaskColumn("Backlog", this));
         columnsList.add(new TaskColumn("To Do", this));

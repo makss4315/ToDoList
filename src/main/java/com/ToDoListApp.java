@@ -1,48 +1,42 @@
 package com;
 
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 public class ToDoListApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        BorderPane root = new BorderPane();
-
         TaskBoard taskBoard = new TaskBoard(); // Создаем TaskBoard
 
-        // Масштабирование интерфейса
-        Scale scale = new Scale(1, 1);
-        root.getTransforms().add(scale);
+        // Создаем корневой контейнер
+        BorderPane root = new BorderPane();
+        root.setCenter(taskBoard.getView()); // Добавляем TaskBoard в центр
 
-        // Обновление масштаба при изменении размеров окна
-        primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            double scaleValue = Math.min(newVal.doubleValue() / 1280, primaryStage.getHeight() / 720); // Учет пропорций
-            scale.setX(scaleValue);
-            scale.setY(scaleValue);
-        });
-
-        primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
-            double scaleValue = Math.min(newVal.doubleValue() / 720, primaryStage.getWidth() / 1280); // Учет пропорций
-            scale.setX(scaleValue);
-            scale.setY(scaleValue);
-        });
-
-        primaryStage.setOnCloseRequest(event -> taskBoard.saveTasks()); // Сохранение задач при выходе
-
-        root.setCenter(taskBoard.getView()); // Добавляем TaskBoard в интерфейс
-
+        // Создаем сцену
         Scene scene = new Scene(root, 1280, 720);
-        primaryStage.setTitle("To-Do List");
+
+        // Устанавливаем минимальные и максимальные размеры окна
+        primaryStage.setMinWidth(1280);
+        primaryStage.setMinHeight(720);
+        primaryStage.setMaxWidth(1920);
+        primaryStage.setMaxHeight(1080);
+
+        // Масштабирование интерфейса
+        root.scaleXProperty().bind(scene.widthProperty().divide(1280));
+        root.scaleYProperty().bind(scene.heightProperty().divide(720));
+
+        // Устанавливаем действия при закрытии приложения
+        primaryStage.setOnCloseRequest(event -> taskBoard.saveTasks()); // Сохраняем задачи при выходе
+
+        primaryStage.setTitle("To-Do List Application");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     public static void main(String[] args) {
-        launch(args); // Запуск JavaFX-приложения
+        launch(args); // Запускаем JavaFX приложение
     }
 }
