@@ -3,11 +3,11 @@ package com;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class ToDoListApp extends Application {
@@ -23,8 +23,12 @@ public class ToDoListApp extends Application {
         taskContainer.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #B0BEC5; -fx-border-width: 2;");
         taskContainer.setEffect(new DropShadow(5.0, Color.GRAY));
 
+        VBox mainLayout = new VBox(20, taskContainer);
+        mainLayout.setAlignment(Pos.TOP_CENTER);
+        mainLayout.setPadding(new Insets(20));
+
         BorderPane content = new BorderPane();
-        content.setCenter(taskContainer);
+        content.setCenter(mainLayout);
 
         // Обертка с улучшенным фоном
         HBox wrapper = new HBox();
@@ -32,7 +36,7 @@ public class ToDoListApp extends Application {
         wrapper.setSpacing(30);
         wrapper.setStyle("-fx-background-color: linear-gradient(to bottom right, #ECEFF1, #CFD8DC);");
         wrapper.getChildren().add(content);
-        wrapper.setAlignment(javafx.geometry.Pos.CENTER);
+        wrapper.setAlignment(Pos.CENTER);
 
         // Добавление мягкой тени и скругленных углов
         StackPane root = new StackPane();
