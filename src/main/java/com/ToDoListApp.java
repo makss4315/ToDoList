@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class ToDoListApp extends Application {
@@ -13,8 +14,12 @@ public class ToDoListApp extends Application {
         TaskBoard taskBoard = new TaskBoard(); // Создаем TaskBoard
 
         // Создаем корневой контейнер
-        BorderPane root = new BorderPane();
-        root.setCenter(taskBoard.getView()); // Добавляем TaskBoard в центр
+        BorderPane content = new BorderPane();
+        content.setCenter(taskBoard.getView()); // Добавляем TaskBoard в центр
+
+        // Создаем StackPane для выравнивания содержимого по центру
+        StackPane root = new StackPane();
+        root.getChildren().add(content);
 
         // Создаем сцену
         Scene scene = new Scene(root, 1280, 720);
@@ -26,11 +31,11 @@ public class ToDoListApp extends Application {
         primaryStage.setMaxHeight(1080);
 
         // Пропорциональное масштабирование
-        root.scaleXProperty().bind(Bindings.createDoubleBinding(
+        content.scaleXProperty().bind(Bindings.createDoubleBinding(
                 () -> Math.min(scene.getWidth() / 1280, scene.getHeight() / 720),
                 scene.widthProperty(), scene.heightProperty()
         ));
-        root.scaleYProperty().bind(Bindings.createDoubleBinding(
+        content.scaleYProperty().bind(Bindings.createDoubleBinding(
                 () -> Math.min(scene.getWidth() / 1280, scene.getHeight() / 720),
                 scene.widthProperty(), scene.heightProperty()
         ));
