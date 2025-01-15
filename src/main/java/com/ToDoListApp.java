@@ -1,6 +1,7 @@
 package com;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -24,9 +25,15 @@ public class ToDoListApp extends Application {
         primaryStage.setMaxWidth(1920);
         primaryStage.setMaxHeight(1080);
 
-        // Масштабирование интерфейса
-        root.scaleXProperty().bind(scene.widthProperty().divide(1280));
-        root.scaleYProperty().bind(scene.heightProperty().divide(720));
+        // Пропорциональное масштабирование
+        root.scaleXProperty().bind(Bindings.createDoubleBinding(
+                () -> Math.min(scene.getWidth() / 1280, scene.getHeight() / 720),
+                scene.widthProperty(), scene.heightProperty()
+        ));
+        root.scaleYProperty().bind(Bindings.createDoubleBinding(
+                () -> Math.min(scene.getWidth() / 1280, scene.getHeight() / 720),
+                scene.widthProperty(), scene.heightProperty()
+        ));
 
         // Устанавливаем действия при закрытии приложения
         primaryStage.setOnCloseRequest(event -> taskBoard.saveTasks()); // Сохраняем задачи при выходе
