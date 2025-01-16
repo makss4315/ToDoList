@@ -3,11 +3,10 @@ package com;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -17,7 +16,7 @@ public class TaskDetailsForm {
     public TaskDetailsForm(Task task, List<TaskColumn> columns, Runnable onTaskDeleted, Runnable onTaskMoved) {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Task Details");
+        stage.setTitle("Edit Task");
 
         GridPane layout = new GridPane();
         layout.setHgap(10);
@@ -25,28 +24,31 @@ public class TaskDetailsForm {
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
 
-        // Title
+        // Editable fields
+        TextField titleField = new TextField(task.getTitle());
+        TextArea descriptionField = new TextArea(task.getDescription());
+        descriptionField.setWrapText(true);
+
+        ColorPicker colorPicker = new ColorPicker();
+        try {
+            colorPicker.setValue(Color.web(task.getColor())); // Преобразуем строку в цвет
+        } catch (IllegalArgumentException e) {
+            colorPicker.setValue(Color.BLACK); // Если строка цвета некорректна, устанавливаем цвет по умолчанию
+        }
+
+        DatePicker dueDatePicker = new DatePicker(java.time.LocalDate.parse(task.getDueDate()));
+
         layout.add(new Label("Title:"), 0, 0);
-        Label titleLabel = new Label(task.getTitle());
-        titleLabel.setStyle("-fx-font-weight: bold;");
-        layout.add(titleLabel, 1, 0);
+        layout.add(titleField, 1, 0);
 
-        // Description
         layout.add(new Label("Description:"), 0, 1);
-        Label descriptionLabel = new Label(task.getDescription());
-        descriptionLabel.setWrapText(true);
-        descriptionLabel.setMaxWidth(250); // Limit width for readability
-        layout.add(descriptionLabel, 1, 1);
+        layout.add(descriptionField, 1, 1);
 
-        // Color
         layout.add(new Label("Color:"), 0, 2);
-        Label colorLabel = new Label(task.getColor());
-        colorLabel.setStyle("-fx-background-color: " + task.getColor() + "; -fx-padding: 3px;");
-        layout.add(colorLabel, 1, 2);
+        layout.add(colorPicker, 1, 2);
 
-        // Due Date
         layout.add(new Label("Due Date:"), 0, 3);
-        layout.add(new Label(task.getDueDate()), 1, 3);
+        layout.add(dueDatePicker, 1, 3);
 
         // Move to another column
         ComboBox<String> columnPicker = new ComboBox<>();
@@ -58,8 +60,18 @@ public class TaskDetailsForm {
         layout.add(columnPicker, 1, 4);
 
         // Buttons
+        Button saveButton = new Button("Save");
+        saveButton.setStyle("-fx-background-color: #0078D7; -fx-text-fill: white;");
+        saveButton.setOnAction(e -> {
+            task.setTitle(titleField.getText());
+            task.setDescription(descriptionField.getText());
+            task.setColor(colorPicker.getValue().toString());
+            task.setDueDate(dueDatePicker.getValue().toString());
+            stage.close();
+        });
+
         Button moveButton = new Button("Move Task");
-        moveButton.setStyle("-fx-background-color: #0078D7; -fx-text-fill: white;");
+        moveButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
         moveButton.setOnAction(e -> {
             String selectedColumn = columnPicker.getValue();
             for (TaskColumn column : columns) {
@@ -91,11 +103,11 @@ public class TaskDetailsForm {
         closeButton.setStyle("-fx-background-color: #666666; -fx-text-fill: white;");
         closeButton.setOnAction(e -> stage.close());
 
-        HBox buttonBox = new HBox(10, moveButton, deleteButton, closeButton);
+        HBox buttonBox = new HBox(10, saveButton, moveButton, deleteButton, closeButton);
         buttonBox.setAlignment(Pos.CENTER);
         layout.add(buttonBox, 0, 5, 2, 1);
 
-        stage.setScene(new Scene(layout, 450, 300));
+        stage.setScene(new Scene(layout, 450, 400));
         stage.show();
     }
 
