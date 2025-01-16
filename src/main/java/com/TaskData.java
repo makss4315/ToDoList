@@ -6,7 +6,7 @@ public class TaskData {
     public String color;
     public String dueDate;
 
-    // Конструктор для создания объекта задачи
+
     public TaskData(String title, String description, String color, String dueDate) {
         this.title = title;
         this.description = description;

@@ -1,14 +1,12 @@
 package com;
 
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.transform.Scale;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +24,7 @@ public class TaskBoard {
         columnsList.add(new TaskColumn("In Progress", this));
         columnsList.add(new TaskColumn("Done", this));
 
-        loadTasks(); // Загружаем задачи при запуске
+        loadTasks();
     }
 
     public List<TaskColumn> getColumns() {
@@ -36,7 +34,7 @@ public class TaskBoard {
     // Метод для получения отображения всех колонок
     public BorderPane getView() {
         // Основное содержимое
-        HBox hbox = new HBox(15); // Расстояние между колонками
+        HBox hbox = new HBox(15);
         hbox.setPadding(new Insets(20));
         hbox.setStyle("-fx-background-color: #f9f9f9; -fx-border-color: #cccccc; -fx-border-width: 2px; -fx-border-radius: 10px;");
 
@@ -44,24 +42,11 @@ public class TaskBoard {
             VBox columnContainer = new VBox();
             columnContainer.setStyle("-fx-background-color: #ffffff; -fx-border-color: #dddddd; -fx-border-radius: 8px; -fx-padding: 10px; -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.1), 8, 0, 0, 4);");
             columnContainer.getChildren().add(column);
-            hbox.getChildren().add(columnContainer); // Добавляем каждую колонку в HBox
+            hbox.getChildren().add(columnContainer);
         }
 
-        // Заголовок приложения
-        Label title = new Label("To-Do List Application");
-        title.setFont(Font.font("Verdana", FontWeight.BOLD, 28));
-        title.setTextFill(Color.web("#444444"));
-        title.setPadding(new Insets(20));
-        title.setStyle("-fx-background-color: #eeeeee; -fx-border-color: #cccccc; -fx-border-radius: 10px; -fx-padding: 10px;");
-
-        HBox header = new HBox(10, title);
-        header.setPadding(new Insets(10));
-
-        // Общий контейнер
         BorderPane root = new BorderPane();
-        root.setTop(header);
         root.setCenter(hbox);
-        BorderPane.setMargin(header, new Insets(10));
 
         return root;
     }
@@ -76,7 +61,7 @@ public class TaskBoard {
             }
             columnData.put(column.getTitle(), tasks);
         }
-        TaskStorage.saveTasks(columnData); // Сохранение в JSON
+        TaskStorage.saveTasks(columnData);
     }
 
     // Загрузка задач

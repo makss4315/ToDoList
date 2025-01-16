@@ -13,7 +13,7 @@ import java.util.Map;
 public class TaskStorage {
     private static final String FILE_PATH = "tasks.json";
 
-    // Сохраняет задачи в файл
+
     public static void saveTasks(Map<String, List<TaskData>> columns) {
         Gson gson = new Gson();
         try (Writer writer = new FileWriter(FILE_PATH)) {
@@ -23,7 +23,7 @@ public class TaskStorage {
         }
     }
 
-    // Загружает задачи из файла
+
     public static Map<String, List<TaskData>> loadTasks() {
         File file = new File(FILE_PATH);
 
