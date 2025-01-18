@@ -26,7 +26,6 @@ public class ToDoListApp extends Application {
         titleLabel.setStyle("-fx-background-color: #ECEFF1; -fx-background-radius: 10; -fx-padding: 10 20 10 20;");
         titleLabel.setAlignment(Pos.CENTER);
 
-        // Улучшенный контейнер TaskBoard с тенями и рамками
         VBox taskContainer = new VBox(taskBoard.getView());
         taskContainer.setPadding(new Insets(20));
         taskContainer.setSpacing(15);
@@ -40,7 +39,6 @@ public class ToDoListApp extends Application {
         BorderPane content = new BorderPane();
         content.setCenter(mainLayout);
 
-        // Обертка с улучшенным фоном
         HBox wrapper = new HBox();
         wrapper.setPadding(new Insets(30));
         wrapper.setSpacing(30);
@@ -48,7 +46,6 @@ public class ToDoListApp extends Application {
         wrapper.getChildren().add(content);
         wrapper.setAlignment(Pos.CENTER);
 
-        // Добавление мягкой тени и скругленных углов
         StackPane root = new StackPane();
         root.getChildren().add(wrapper);
         root.setStyle("-fx-background-color: linear-gradient(to top left, #FFFFFF, #ECEFF1);");

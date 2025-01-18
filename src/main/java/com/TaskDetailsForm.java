@@ -24,16 +24,15 @@ public class TaskDetailsForm {
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
 
-        // Editable fields
         TextField titleField = new TextField(task.getTitle());
         TextArea descriptionField = new TextArea(task.getDescription());
         descriptionField.setWrapText(true);
 
         ColorPicker colorPicker = new ColorPicker();
         try {
-            colorPicker.setValue(Color.web(task.getColor())); // Преобразуем строку в цвет
+            colorPicker.setValue(Color.web(task.getColor()));
         } catch (IllegalArgumentException e) {
-            colorPicker.setValue(Color.BLACK); // Если строка цвета некорректна, устанавливаем цвет по умолчанию
+            colorPicker.setValue(Color.BLACK);
         }
 
         DatePicker dueDatePicker = new DatePicker(java.time.LocalDate.parse(task.getDueDate()));
@@ -50,7 +49,6 @@ public class TaskDetailsForm {
         layout.add(new Label("Due Date:"), 0, 3);
         layout.add(dueDatePicker, 1, 3);
 
-        // Move to another column
         ComboBox<String> columnPicker = new ComboBox<>();
         for (TaskColumn column : columns) {
             columnPicker.getItems().add(column.getTitle());

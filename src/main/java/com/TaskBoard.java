@@ -1,12 +1,12 @@
 package com;
 
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,11 +36,11 @@ public class TaskBoard {
         // Основное содержимое
         HBox hbox = new HBox(15);
         hbox.setPadding(new Insets(20));
-        hbox.setStyle("-fx-background-color: #f9f9f9; -fx-border-color: #cccccc; -fx-border-width: 2px; -fx-border-radius: 10px;");
+        hbox.setStyle("-fx-background-color: linear-gradient(to bottom, #e8e8e8, #f5f5f5); -fx-border-color: #cccccc; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-padding: 20px;");
 
         for (TaskColumn column : columnsList) {
-            VBox columnContainer = new VBox();
-            columnContainer.setStyle("-fx-background-color: #ffffff; -fx-border-color: #dddddd; -fx-border-radius: 8px; -fx-padding: 10px; -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.1), 8, 0, 0, 4);");
+            VBox columnContainer = new VBox(10);
+            columnContainer.setStyle("-fx-background-color: #ffffff; -fx-border-color: #dddddd; -fx-border-radius: 8px; -fx-padding: 15px; -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 4);");
             columnContainer.getChildren().add(column);
             hbox.getChildren().add(columnContainer);
         }
