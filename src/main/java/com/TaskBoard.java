@@ -40,13 +40,14 @@ public class TaskBoard {
 
         for (TaskColumn column : columnsList) {
             VBox columnContainer = new VBox(10);
-            columnContainer.setStyle("-fx-background-color: #ffffff; -fx-border-color: #dddddd; -fx-border-radius: 8px; -fx-padding: 15px; -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 4);");
+            columnContainer.setStyle("-fx-background-color: #ffffff; -fx-border-color: #dddddd; -fx-border-radius: 8px; -fx-padding: 15px; -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.15), 12, 0, 0, 6);");
             columnContainer.getChildren().add(column);
             hbox.getChildren().add(columnContainer);
         }
 
         BorderPane root = new BorderPane();
         root.setCenter(hbox);
+        root.setStyle("-fx-background-color: #f4f4f4;");
 
         return root;
     }

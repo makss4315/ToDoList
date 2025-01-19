@@ -15,14 +15,16 @@ public class TaskColumn extends VBox {
         taskList = new ListView<>();
 
         Label titleLabel = new Label(title);
-        titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;");
+        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #444444; -fx-padding: 5px 0;");
 
         Button addTaskButton = new Button("+ Add new card");
-        addTaskButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5px 10px; -fx-border-radius: 5px; -fx-background-radius: 5px;");
-        addTaskButton.setOnMouseEntered(e -> addTaskButton.setStyle("-fx-background-color: #45A049; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5px 10px; -fx-border-radius: 5px; -fx-background-radius: 5px;"));
-        addTaskButton.setOnMouseExited(e -> addTaskButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5px 10px; -fx-border-radius: 5px; -fx-background-radius: 5px;"));
+        addTaskButton.setStyle("-fx-background-color: linear-gradient(to right, #4CAF50, #3E8E41); -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8px 12px; -fx-border-radius: 6px; -fx-background-radius: 6px; -fx-cursor: hand;");
+        addTaskButton.setOnMouseEntered(e -> addTaskButton.setStyle("-fx-background-color: linear-gradient(to right, #45A049, #357D36); -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8px 12px; -fx-border-radius: 6px; -fx-background-radius: 6px; -fx-cursor: hand;"));
+        addTaskButton.setOnMouseExited(e -> addTaskButton.setStyle("-fx-background-color: linear-gradient(to right, #4CAF50, #3E8E41); -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8px 12px; -fx-border-radius: 6px; -fx-background-radius: 6px; -fx-cursor: hand;"));
 
         addTaskButton.setOnAction(e -> new TaskForm(task -> taskList.getItems().add(task), taskBoard));
+
+        this.setStyle("-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-width: 1px; -fx-border-radius: 8px; -fx-padding: 15px;");
 
         this.getChildren().addAll(titleLabel, taskList, addTaskButton);
     }
