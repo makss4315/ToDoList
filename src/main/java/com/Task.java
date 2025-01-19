@@ -1,9 +1,11 @@
 package com;
 
+import javafx.animation.ScaleTransition;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class Task extends HBox {
     private String title;
@@ -20,20 +22,39 @@ public class Task extends HBox {
         this.dueDate = dueDate;
         this.taskBoard = taskBoard;
 
+        // Цветовая метка задачи
         Rectangle colorBox = new Rectangle(10, 10, Color.valueOf(color.toLowerCase()));
         Label taskInfo = new Label(title + " (Due: " + dueDate + ")");
         this.getChildren().addAll(colorBox, taskInfo);
 
-        this.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) {
-                new TaskDetailsForm(
-                        this,
-                        taskBoard.getColumns(),
-                        this::removeTaskFromCurrentColumn,
-                        () -> {}
-                );
-            }
-        });
+        // Стили задачи
+        this.setStyle("-fx-background-color: #ECEFF1; -fx-background-radius: 8; -fx-padding: 10;");
+        this.setOnMouseEntered(event -> applyHoverEffect());
+        this.setOnMouseExited(event -> removeHoverEffect());
+    }
+
+    // Эффект при наведении мышки
+    private void applyHoverEffect() {
+        // Увеличение масштаба
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), this);
+        scaleTransition.setToX(1.05);
+        scaleTransition.setToY(1.05);
+        scaleTransition.play();
+
+        // Изменение фона
+        this.setStyle("-fx-background-color: #CFD8DC; -fx-background-radius: 8; -fx-padding: 10; -fx-border-color: #B0BEC5; -fx-border-width: 2;");
+    }
+
+    // Убираем эффект при уходе мышки
+    private void removeHoverEffect() {
+        // Возвращаем масштаб
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), this);
+        scaleTransition.setToX(1.0);
+        scaleTransition.setToY(1.0);
+        scaleTransition.play();
+
+        // Возвращаем оригинальный стиль
+        this.setStyle("-fx-background-color: #ECEFF1; -fx-background-radius: 8; -fx-padding: 10;");
     }
 
     public void setTitle(String title) {
@@ -66,21 +87,5 @@ public class Task extends HBox {
 
     public String getDueDate() {
         return dueDate;
-    }
-
-    private void removeTaskFromCurrentColumn() {
-        TaskColumn currentColumn = getCurrentColumn();
-        if (currentColumn != null) {
-            currentColumn.getTaskList().getItems().remove(this);
-        }
-    }
-
-    private TaskColumn getCurrentColumn() {
-        for (TaskColumn column : taskBoard.getColumns()) {
-            if (column.getTaskList().getItems().contains(this)) {
-                return column;
-            }
-        }
-        return null;
     }
 }

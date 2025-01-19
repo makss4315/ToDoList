@@ -1,6 +1,6 @@
 package com;
 
-import javafx.application.Application;
+import javafx.animation.ScaleTransition;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,13 +12,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-public class ToDoListApp extends Application {
+public class ToDoListApp extends javafx.application.Application {
 
     @Override
     public void start(Stage primaryStage) {
         TaskBoard taskBoard = new TaskBoard();
 
+        // Заголовок приложения
         Label titleLabel = new Label("To-Do List Application");
         titleLabel.setFont(Font.font("Roboto", FontWeight.BOLD, 28));
         titleLabel.setTextFill(Color.web("#37474F"));
@@ -26,11 +28,26 @@ public class ToDoListApp extends Application {
         titleLabel.setAlignment(Pos.CENTER);
         titleLabel.setEffect(new DropShadow(5.0, Color.GRAY));
 
+        // Анимация заголовка
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(2), titleLabel);
+        scaleTransition.setFromX(0.9);
+        scaleTransition.setFromY(0.9);
+        scaleTransition.setToX(1.0);
+        scaleTransition.setToY(1.0);
+        scaleTransition.setCycleCount(ScaleTransition.INDEFINITE);
+        scaleTransition.setAutoReverse(true);
+        scaleTransition.play();
+
+        // Контейнер для задач
         VBox taskContainer = new VBox(taskBoard.getView());
         taskContainer.setPadding(new Insets(20));
         taskContainer.setSpacing(20);
         taskContainer.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #B0BEC5; -fx-border-width: 3;");
         taskContainer.setEffect(new DropShadow(10.0, Color.GRAY));
+
+        // Анимация задач (нажатие)
+        taskContainer.setOnMouseEntered(e -> taskContainer.setScaleX(1.02));
+        taskContainer.setOnMouseExited(e -> taskContainer.setScaleX(1.0));
 
         VBox mainLayout = new VBox(30, titleLabel, taskContainer);
         mainLayout.setAlignment(Pos.TOP_CENTER);
@@ -39,6 +56,7 @@ public class ToDoListApp extends Application {
         BorderPane content = new BorderPane();
         content.setCenter(mainLayout);
 
+        // Фон приложения
         HBox wrapper = new HBox();
         wrapper.setPadding(new Insets(40));
         wrapper.setSpacing(40);
@@ -52,10 +70,10 @@ public class ToDoListApp extends Application {
 
         Scene scene = new Scene(root, 1280, 720);
 
+        // Адаптивность размеров
         primaryStage.setMinWidth(1280);
         primaryStage.setMinHeight(720);
 
-        // Масштабирование контента
         content.scaleXProperty().bind(Bindings.createDoubleBinding(
                 () -> Math.min(scene.getWidth() / 1280, scene.getHeight() / 720),
                 scene.widthProperty(), scene.heightProperty()
@@ -65,7 +83,7 @@ public class ToDoListApp extends Application {
                 scene.widthProperty(), scene.heightProperty()
         ));
 
-        // Действия при закрытии
+        // Закрытие приложения
         primaryStage.setOnCloseRequest(event -> taskBoard.saveTasks());
 
         primaryStage.setScene(scene);
