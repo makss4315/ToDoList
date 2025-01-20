@@ -1,5 +1,6 @@
 package com;
 
+import javafx.animation.ScaleTransition;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -8,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class TaskColumn extends VBox {
     private final ListView<Task> taskList;
@@ -77,6 +79,24 @@ public class TaskColumn extends VBox {
                     dueDateText.setStyle("-fx-font-size: 12px; -fx-text-fill: #888888;");
 
                     taskBox.getChildren().addAll(colorIndicator, titleText, dueDateText);
+
+                    taskBox.setOnMouseEntered(event -> {
+                        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), taskBox);
+                        scaleTransition.setFromX(1.0);
+                        scaleTransition.setFromY(1.0);
+                        scaleTransition.setToX(1.05);
+                        scaleTransition.setToY(1.05);
+                        scaleTransition.play();
+                    });
+
+                    taskBox.setOnMouseExited(event -> {
+                        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), taskBox);
+                        scaleTransition.setFromX(1.05);
+                        scaleTransition.setFromY(1.05);
+                        scaleTransition.setToX(1.0);
+                        scaleTransition.setToY(1.0);
+                        scaleTransition.play();
+                    });
 
                     taskBox.setOnMouseClicked(event -> {
                         if (event.getClickCount() == 2) {
