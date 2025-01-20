@@ -40,14 +40,13 @@ public class TaskColumn extends VBox {
 
         addTaskButton.setOnAction(e -> new TaskForm(task -> {
             taskList.getItems().add(task);
-            styleTaskList();
         }, taskBoard));
 
         this.setStyle("-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-width: 1px; " +
                 "-fx-border-radius: 8px; -fx-padding: 15px;");
 
         this.getChildren().addAll(titleLabel, taskList, addTaskButton);
-        styleTaskList();
+        styleTaskList(taskBoard);
     }
 
     public String getTitle() {
@@ -58,7 +57,7 @@ public class TaskColumn extends VBox {
         return taskList;
     }
 
-    private void styleTaskList() {
+    private void styleTaskList(TaskBoard taskBoard) {
         taskList.setCellFactory(lv -> new javafx.scene.control.ListCell<>() {
             @Override
             protected void updateItem(Task task, boolean empty) {
@@ -78,6 +77,18 @@ public class TaskColumn extends VBox {
                     dueDateText.setStyle("-fx-font-size: 12px; -fx-text-fill: #888888;");
 
                     taskBox.getChildren().addAll(colorIndicator, titleText, dueDateText);
+
+                    taskBox.setOnMouseClicked(event -> {
+                        if (event.getClickCount() == 2) {
+                            new TaskDetailsForm(
+                                    task,
+                                    taskBoard.getColumns(),
+                                    task::removeTaskFromCurrentColumn,
+                                    () -> {}
+                            );
+                        }
+                    });
+
                     setGraphic(taskBox);
                 }
             }

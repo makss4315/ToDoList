@@ -68,7 +68,7 @@ public class Task extends HBox {
         return dueDate;
     }
 
-    private void removeTaskFromCurrentColumn() {
+    public void removeTaskFromCurrentColumn() {
         TaskColumn currentColumn = getCurrentColumn();
         if (currentColumn != null) {
             currentColumn.getTaskList().getItems().remove(this);
