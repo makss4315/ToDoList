@@ -44,8 +44,12 @@ public class TaskColumn extends VBox {
             taskList.getItems().add(task);
         }, taskBoard));
 
-        this.setStyle("-fx-background-color: #222222; -fx-border-color: #FF6600; -fx-border-width: 1px; " +  // Dark background with orange border
+        // Устанавливаем стиль для всей колонки (VBox)
+        this.setStyle("-fx-background-color: #1E1E1E; -fx-border-color: #FF6600; -fx-border-width: 1px; " +  // Dark background with orange border
                 "-fx-border-radius: 8px; -fx-padding: 15px;");
+
+        // Устанавливаем стиль для списка задач (ListView)
+        taskList.setStyle("-fx-background-color: #1E1E1E; -fx-control-inner-background: #1E1E1E; -fx-border-color: transparent;");
 
         this.getChildren().addAll(titleLabel, taskList, addTaskButton);
         styleTaskList(taskBoard);
@@ -69,7 +73,7 @@ public class TaskColumn extends VBox {
                     setGraphic(null);
                 } else {
                     HBox taskBox = new HBox(10);
-                    taskBox.setStyle("-fx-background-color: #333333; -fx-border-color: #FF6600; -fx-border-radius: 6px; " +  // Dark grey with orange borders
+                    taskBox.setStyle("-fx-background-color: #806f69; -fx-border-color: #FF6600; -fx-border-radius: 6px; " +  // Dark grey with orange borders
                             "-fx-padding: 10px; -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 2);");
 
                     Rectangle colorIndicator = new Rectangle(10, 10, Color.valueOf(task.getColor().toLowerCase()));
