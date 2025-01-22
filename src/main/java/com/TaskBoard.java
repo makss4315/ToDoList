@@ -45,7 +45,7 @@ public class TaskBoard {
 
         BorderPane root = new BorderPane();
         root.setCenter(hbox);
-        root.setStyle("-fx-background-color: #f4f4f4;");
+        root.setStyle("-fx-background-color: #2E2E2E;");
 
         return root;
     }
@@ -72,6 +72,8 @@ public class TaskBoard {
                 Task task = new Task(data.title, data.description, data.color, data.dueDate, this);
                 column.getTaskList().getItems().add(task);
             }
+            column.setStyle("-fx-background-color: #3A3A3A; -fx-border-color: #555555; -fx-border-width: 1px; " +
+                    "-fx-border-radius: 8px; -fx-padding: 15px;");
         }
     }
 }

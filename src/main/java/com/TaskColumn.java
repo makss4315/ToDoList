@@ -21,21 +21,21 @@ public class TaskColumn extends VBox {
         taskList = new ListView<>();
 
         Label titleLabel = new Label(title);
-        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #444444; -fx-padding: 5px 0;");
+        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #FF6600; -fx-padding: 5px 0;");
 
         Button addTaskButton = new Button("+ Add new card");
         addTaskButton.setStyle(
-                "-fx-background-color: linear-gradient(to right, #4CAF50, #3E8E41); " +
+                "-fx-background-color: linear-gradient(to right, #FF4500, #FF8C00); " +  // Orange gradient
                         "-fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8px 12px; " +
                         "-fx-border-radius: 6px; -fx-background-radius: 6px; -fx-cursor: hand;"
         );
         addTaskButton.setOnMouseEntered(e -> addTaskButton.setStyle(
-                "-fx-background-color: linear-gradient(to right, #45A049, #357D36); " +
+                "-fx-background-color: linear-gradient(to right, #FF8C00, #FF6347); " +  // Lighter orange gradient
                         "-fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8px 12px; " +
                         "-fx-border-radius: 6px; -fx-background-radius: 6px; -fx-cursor: hand;"
         ));
         addTaskButton.setOnMouseExited(e -> addTaskButton.setStyle(
-                "-fx-background-color: linear-gradient(to right, #4CAF50, #3E8E41); " +
+                "-fx-background-color: linear-gradient(to right, #FF4500, #FF8C00); " +  // Orange gradient
                         "-fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8px 12px; " +
                         "-fx-border-radius: 6px; -fx-background-radius: 6px; -fx-cursor: hand;"
         ));
@@ -44,7 +44,7 @@ public class TaskColumn extends VBox {
             taskList.getItems().add(task);
         }, taskBoard));
 
-        this.setStyle("-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-width: 1px; " +
+        this.setStyle("-fx-background-color: #222222; -fx-border-color: #FF6600; -fx-border-width: 1px; " +  // Dark background with orange border
                 "-fx-border-radius: 8px; -fx-padding: 15px;");
 
         this.getChildren().addAll(titleLabel, taskList, addTaskButton);
@@ -69,11 +69,12 @@ public class TaskColumn extends VBox {
                     setGraphic(null);
                 } else {
                     HBox taskBox = new HBox(10);
-                    taskBox.setStyle("-fx-background-color: #f9f9f9; -fx-border-color: #dddddd; -fx-border-radius: 6px; -fx-padding: 10px; -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 2);");
+                    taskBox.setStyle("-fx-background-color: #333333; -fx-border-color: #FF6600; -fx-border-radius: 6px; " +  // Dark grey with orange borders
+                            "-fx-padding: 10px; -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 2);");
 
                     Rectangle colorIndicator = new Rectangle(10, 10, Color.valueOf(task.getColor().toLowerCase()));
                     Text titleText = new Text(task.getTitle());
-                    titleText.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+                    titleText.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #FF6600;");  // Orange text color
 
                     Text dueDateText = new Text(" (Due: " + task.getDueDate() + ")");
                     dueDateText.setStyle("-fx-font-size: 12px; -fx-text-fill: #888888;");

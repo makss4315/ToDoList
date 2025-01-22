@@ -20,16 +20,16 @@ public class ToDoListApp extends Application {
         TaskBoard taskBoard = new TaskBoard();
 
 
-        Label titleLabel = new Label("To-Do List Application");
+        Label titleLabel = new Label("To-Do List Application");   //FF6600
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         titleLabel.setTextFill(Color.web("#37474F"));
-        titleLabel.setStyle("-fx-background-color: #ECEFF1; -fx-background-radius: 10; -fx-padding: 10 20 10 20;");
+        titleLabel.setStyle("-fx-background-color: #2E2E2E; -fx-background-radius: 10; -fx-padding: 10 20 10 20;");
         titleLabel.setAlignment(Pos.CENTER);
 
         VBox taskContainer = new VBox(taskBoard.getView());
         taskContainer.setPadding(new Insets(20));
         taskContainer.setSpacing(15);
-        taskContainer.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #B0BEC5; -fx-border-width: 2;");
+        taskContainer.setStyle("-fx-background-color: #2E2E2E; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #555555; -fx-border-width: 2;");
         taskContainer.setEffect(new DropShadow(5.0, Color.GRAY));
 
         VBox mainLayout = new VBox(20, titleLabel, taskContainer);
@@ -42,13 +42,13 @@ public class ToDoListApp extends Application {
         HBox wrapper = new HBox();
         wrapper.setPadding(new Insets(30));
         wrapper.setSpacing(30);
-        wrapper.setStyle("-fx-background-color: linear-gradient(to bottom right, #ECEFF1, #CFD8DC);");
+        wrapper.setStyle("-fx-background-color: linear-gradient(to bottom right, #555555, #4d4c4c);");
         wrapper.getChildren().add(content);
         wrapper.setAlignment(Pos.CENTER);
 
         StackPane root = new StackPane();
         root.getChildren().add(wrapper);
-        root.setStyle("-fx-background-color: linear-gradient(to top left, #FFFFFF, #ECEFF1);");
+        root.setStyle("-fx-background-color: linear-gradient(to top left, #555555, #4d4c4c);");
 
         Scene scene = new Scene(root, 1280, 720);
 
