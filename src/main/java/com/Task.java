@@ -75,6 +75,7 @@ public class Task extends HBox {
         }
     }
 
+
     private TaskColumn getCurrentColumn() {
         for (TaskColumn column : taskBoard.getColumns()) {
             if (column.getTaskList().getItems().contains(this)) {

@@ -36,11 +36,9 @@ public class TaskBoard {
         // Основное содержимое
         HBox hbox = new HBox(15);
         hbox.setPadding(new Insets(20));
-        hbox.setStyle("-fx-background-color: linear-gradient(to bottom, #e8e8e8, #f5f5f5); -fx-border-color: #cccccc; -fx-border-width: 2px; -fx-border-radius: 10px; -fx-padding: 20px;");
 
         for (TaskColumn column : columnsList) {
             VBox columnContainer = new VBox(10);
-            columnContainer.setStyle("-fx-background-color: #ffffff; -fx-border-color: #dddddd; -fx-border-radius: 8px; -fx-padding: 15px; -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.15), 12, 0, 0, 6);");
             columnContainer.getChildren().add(column);
             hbox.getChildren().add(columnContainer);
         }
