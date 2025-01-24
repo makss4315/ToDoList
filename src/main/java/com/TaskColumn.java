@@ -73,7 +73,7 @@ public class TaskColumn extends VBox {
                     setGraphic(null);
                 } else {
                     HBox taskBox = new HBox(10);
-                    taskBox.setStyle("-fx-background-color: #806f69; -fx-border-color: #FF6600; -fx-border-radius: 6px; " +  // Dark grey with orange borders
+                    taskBox.setStyle("-fx-background-color: #5e5e5e; -fx-border-color: #FF6600; -fx-border-radius: 6px; " +  // Dark grey with orange borders
                             "-fx-padding: 10px; -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 2);");
 
                     Rectangle colorIndicator = new Rectangle(10, 10, Color.valueOf(task.getColor().toLowerCase()));
