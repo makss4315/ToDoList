@@ -1,6 +1,7 @@
 package com;
 
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -81,7 +82,7 @@ public class TaskColumn extends VBox {
                     colorIndicator.setArcHeight(6);
 
                     Text titleText = new Text(task.getTitle());
-                    titleText.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #FFA500;"); // Orange text color
+                    titleText.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #FFA500;");
 
                     Text dueDateText = new Text(" (Due: " + task.getDueDate() + ")");
                     dueDateText.setStyle("-fx-font-size: 14px; -fx-text-fill: #BBBBBB;");
@@ -113,6 +114,7 @@ public class TaskColumn extends VBox {
                         scaleTransition.play();
                     });
 
+                    // Обработчик двойного клика для открытия формы с деталями задачи
                     taskBox.setOnMouseClicked(event -> {
                         if (event.getClickCount() == 2) {
                             new TaskDetailsForm(
@@ -127,6 +129,12 @@ public class TaskColumn extends VBox {
                     setGraphic(taskBox);
                 }
             }
+        });
+
+        // Добавляем отложенную установку стилей для полос прокрутки
+        Platform.runLater(() -> {
+            taskList.lookup(".scroll-bar:horizontal").setStyle("-fx-background-color: #3A3A3A;");
+            taskList.lookup(".scroll-bar:vertical").setStyle("-fx-background-color: #3A3A3A;");
         });
     }
 }
