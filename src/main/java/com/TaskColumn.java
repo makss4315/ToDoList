@@ -1,6 +1,7 @@
 package com;
 
 import javafx.animation.ScaleTransition;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -44,14 +45,14 @@ public class TaskColumn extends VBox {
             taskList.getItems().add(task);
         }, taskBoard));
 
-        // Устанавливаем стиль для всей колонки (VBox)
         this.setStyle("-fx-background-color: #1E1E1E; -fx-border-color: #FFA500; -fx-border-width: 2px; " +
                 "-fx-border-radius: 12px; -fx-padding: 15px;");
 
-        // Устанавливаем стиль для списка задач (ListView)
         taskList.setStyle("-fx-background-color: #1E1E1E; -fx-control-inner-background: #1E1E1E; -fx-border-color: transparent;");
 
         this.getChildren().addAll(titleLabel, taskList, addTaskButton);
+
+        styleScrollBar();
         styleTaskList(taskBoard);
     }
 
@@ -61,6 +62,19 @@ public class TaskColumn extends VBox {
 
     public ListView<Task> getTaskList() {
         return taskList;
+    }
+
+    private void styleScrollBar() {
+        taskList.skinProperty().addListener((obs, oldSkin, newSkin) -> {
+            taskList.lookupAll(".scroll-bar").forEach(scrollBar -> {
+                scrollBar.setStyle("-fx-background-color: #2E2E2E;");
+                scrollBar.lookup(".thumb").setStyle(
+                        "-fx-background-color: #FFA500; " +
+                                "-fx-background-radius: 5px; " +
+                                "-fx-padding: 2px;"
+                );
+            });
+        });
     }
 
     private void styleTaskList(TaskBoard taskBoard) {
@@ -81,47 +95,29 @@ public class TaskColumn extends VBox {
                     colorIndicator.setArcHeight(6);
 
                     Text titleText = new Text(task.getTitle());
-                    titleText.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #FFA500;"); // Orange text color
+                    titleText.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #FFA500;");
 
                     Text dueDateText = new Text(" (Due: " + task.getDueDate() + ")");
                     dueDateText.setStyle("-fx-font-size: 14px; -fx-text-fill: #BBBBBB;");
 
                     taskBox.getChildren().addAll(colorIndicator, titleText, dueDateText);
 
-                    // Добавляем эффект увеличения при наведении
                     taskBox.setOnMouseEntered(event -> {
                         taskBox.setStyle("-fx-background-color: #6e6e6e; -fx-border-color: #FFA500; -fx-border-radius: 12px; " +
                                 "-fx-padding: 12px; -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.4), 15, 0, 0, 6);");
-
-                        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), taskBox);
-                        scaleTransition.setFromX(1.0);
-                        scaleTransition.setFromY(1.0);
-                        scaleTransition.setToX(1.07);
-                        scaleTransition.setToY(1.07);
-                        scaleTransition.play();
+                        ScaleTransition st = new ScaleTransition(Duration.millis(200), taskBox);
+                        st.setToX(1.07);
+                        st.setToY(1.07);
+                        st.play();
                     });
 
                     taskBox.setOnMouseExited(event -> {
                         taskBox.setStyle("-fx-background-color: #5e5e5e; -fx-border-color: #FFA500; -fx-border-radius: 12px; " +
                                 "-fx-padding: 12px; -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 4);");
-
-                        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), taskBox);
-                        scaleTransition.setFromX(1.07);
-                        scaleTransition.setFromY(1.07);
-                        scaleTransition.setToX(1.0);
-                        scaleTransition.setToY(1.0);
-                        scaleTransition.play();
-                    });
-
-                    taskBox.setOnMouseClicked(event -> {
-                        if (event.getClickCount() == 2) {
-                            new TaskDetailsForm(
-                                    task,
-                                    taskBoard.getColumns(),
-                                    task::removeTaskFromCurrentColumn,
-                                    () -> {}
-                            );
-                        }
+                        ScaleTransition st = new ScaleTransition(Duration.millis(200), taskBox);
+                        st.setToX(1.0);
+                        st.setToY(1.0);
+                        st.play();
                     });
 
                     setGraphic(taskBox);
