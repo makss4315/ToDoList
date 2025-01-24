@@ -4,6 +4,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -29,6 +31,42 @@ public class TaskForm {
         ComboBox<String> colorPicker = new ComboBox<>();
         colorPicker.getItems().addAll("Red", "Green", "Blue", "Yellow");
         colorPicker.setValue("Red");
+
+        // Настройка отображения элементов списка с закругленными квадратиками
+        colorPicker.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(String color, boolean empty) {
+                super.updateItem(color, empty);
+                if (empty || color == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(color);
+                    Rectangle rect = new Rectangle(20, 20, Color.web(color.toLowerCase()));
+                    rect.setArcWidth(10); // Закругление углов
+                    rect.setArcHeight(10); // Закругление углов
+                    setGraphic(rect);
+                }
+            }
+        });
+
+        // Отображение текущего выбранного элемента
+        colorPicker.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(String color, boolean empty) {
+                super.updateItem(color, empty);
+                if (empty || color == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(color);
+                    Rectangle rect = new Rectangle(20, 20, Color.web(color.toLowerCase()));
+                    rect.setArcWidth(10); // Закругление углов
+                    rect.setArcHeight(10); // Закругление углов
+                    setGraphic(rect);
+                }
+            }
+        });
 
         DatePicker dueDatePicker = new DatePicker();
 

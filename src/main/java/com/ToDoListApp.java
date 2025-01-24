@@ -20,11 +20,12 @@ public class ToDoListApp extends Application {
         TaskBoard taskBoard = new TaskBoard();
 
 
-        Label titleLabel = new Label("To-Do List Application");   //FF6600
+        Label titleLabel = new Label("To-Do List Application"); // Изменить цвет текста
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-        titleLabel.setTextFill(Color.web("#37474F"));
+        titleLabel.setTextFill(Color.web("#FF6600")); // Установить цвет текста
         titleLabel.setStyle("-fx-background-color: #2E2E2E; -fx-background-radius: 10; -fx-padding: 10 20 10 20;");
         titleLabel.setAlignment(Pos.CENTER);
+
 
         VBox taskContainer = new VBox(taskBoard.getView());
         taskContainer.setPadding(new Insets(20));
