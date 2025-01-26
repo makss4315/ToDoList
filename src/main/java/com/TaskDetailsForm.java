@@ -38,7 +38,9 @@ public class TaskDetailsForm {
         descriptionLabel.setStyle("-fx-text-fill: #FFA500;");
         TextArea descriptionField = new TextArea(task.getDescription());
         descriptionField.setWrapText(true);
-        descriptionField.setStyle("-fx-background-color: #333333; -fx-text-fill: #FFA500; -fx-background-radius: 10px;");
+        descriptionField.setStyle("-fx-control-inner-background: #555555; -fx-text-fill: #FFA500; -fx-background-radius: 10px; -fx-border-color: #FFA500; -fx-border-width: 1px;");
+
+
 
         Label colorLabel = new Label("Color:");
         colorLabel.setStyle("-fx-text-fill: #FFA500;");
