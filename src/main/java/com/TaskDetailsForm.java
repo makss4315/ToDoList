@@ -55,6 +55,7 @@ public class TaskDetailsForm {
         DatePicker dueDatePicker = new DatePicker(java.time.LocalDate.parse(task.getDueDate()));
         dueDatePicker.setStyle("-fx-background-color: #333333; -fx-text-fill: #FFA500; -fx-background-radius: 10px;");
         dueDatePicker.getEditor().setStyle("-fx-background-color: #333333; -fx-text-fill: #FFA500; -fx-background-radius: 10px;");
+        dueDatePicker.setStyle("-fx-background-color: #333333; -fx-background-radius: 10px;");
 
         layout.add(titleLabel, 0, 0);
         layout.add(titleField, 1, 0);
