@@ -17,13 +17,17 @@ public class TaskDetailsForm {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Edit Task");
+        stage.setMinWidth(800);
+        stage.setMinHeight(500);
+        stage.setMaxWidth(800);
+        stage.setMaxHeight(500);
 
         GridPane layout = new GridPane();
         layout.setHgap(10);
         layout.setVgap(15);
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
-        layout.setStyle("-fx-background-color: #1E1E1E;");
+        layout.setStyle("-fx-background-color: #1E1E1E; -fx-border-color: #FFA500; -fx-border-width: 3px;");
 
         Label titleLabel = new Label("Title:");
         titleLabel.setStyle("-fx-text-fill: #FFA500;");
@@ -117,7 +121,7 @@ public class TaskDetailsForm {
         buttonBox.setAlignment(Pos.CENTER);
         layout.add(buttonBox, 0, 5, 2, 1);
 
-        stage.setScene(new Scene(layout, 450, 400));
+        stage.setScene(new Scene(layout, 800, 500));
         stage.show();
     }
 
