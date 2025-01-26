@@ -18,9 +18,9 @@ public class TaskDetailsForm {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Edit Task");
         stage.setMinWidth(800);
-        stage.setMinHeight(500);
+        stage.setMinHeight(480);
         stage.setMaxWidth(800);
-        stage.setMaxHeight(500);
+        stage.setMaxHeight(480);
 
         GridPane layout = new GridPane();
         layout.setHgap(10);
@@ -54,6 +54,7 @@ public class TaskDetailsForm {
         dueDateLabel.setStyle("-fx-text-fill: #FFA500;");
         DatePicker dueDatePicker = new DatePicker(java.time.LocalDate.parse(task.getDueDate()));
         dueDatePicker.setStyle("-fx-background-color: #333333; -fx-text-fill: #FFA500; -fx-background-radius: 10px;");
+        dueDatePicker.getEditor().setStyle("-fx-background-color: #333333; -fx-text-fill: #FFA500; -fx-background-radius: 10px;");
 
         layout.add(titleLabel, 0, 0);
         layout.add(titleField, 1, 0);
@@ -123,7 +124,7 @@ public class TaskDetailsForm {
         buttonBox.setAlignment(Pos.CENTER);
         layout.add(buttonBox, 0, 5, 2, 1);
 
-        stage.setScene(new Scene(layout, 800, 500));
+        stage.setScene(new Scene(layout, 800, 480));
         stage.show();
     }
 
