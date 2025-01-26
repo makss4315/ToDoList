@@ -32,17 +32,18 @@ public class TaskDetailsForm {
         Label titleLabel = new Label("Title:");
         titleLabel.setStyle("-fx-text-fill: #FFA500;");
         TextField titleField = new TextField(task.getTitle());
-        titleField.setStyle("-fx-background-color: #333333; -fx-text-fill: #FFA500;");
+        titleField.setStyle("-fx-background-color: #333333; -fx-text-fill: #FFA500; -fx-background-radius: 10px;");
 
         Label descriptionLabel = new Label("Description:");
         descriptionLabel.setStyle("-fx-text-fill: #FFA500;");
         TextArea descriptionField = new TextArea(task.getDescription());
         descriptionField.setWrapText(true);
-        descriptionField.setStyle("-fx-background-color: #333333; -fx-text-fill: #FFA500;");
+        descriptionField.setStyle("-fx-background-color: #333333; -fx-text-fill: #FFA500; -fx-background-radius: 10px;");
 
         Label colorLabel = new Label("Color:");
         colorLabel.setStyle("-fx-text-fill: #FFA500;");
         ColorPicker colorPicker = new ColorPicker();
+        colorPicker.setStyle("-fx-background-color: #333333; -fx-background-radius: 10px;");
         try {
             colorPicker.setValue(Color.web(task.getColor()));
         } catch (IllegalArgumentException e) {
@@ -52,6 +53,7 @@ public class TaskDetailsForm {
         Label dueDateLabel = new Label("Due Date:");
         dueDateLabel.setStyle("-fx-text-fill: #FFA500;");
         DatePicker dueDatePicker = new DatePicker(java.time.LocalDate.parse(task.getDueDate()));
+        dueDatePicker.setStyle("-fx-background-color: #333333; -fx-text-fill: #FFA500; -fx-background-radius: 10px;");
 
         layout.add(titleLabel, 0, 0);
         layout.add(titleField, 1, 0);
@@ -65,7 +67,7 @@ public class TaskDetailsForm {
         Label moveToLabel = new Label("Move to:");
         moveToLabel.setStyle("-fx-text-fill: #FFA500;");
         ComboBox<String> columnPicker = new ComboBox<>();
-        columnPicker.setStyle("-fx-background-color: #333333; -fx-text-fill: #FFA500;");
+        columnPicker.setStyle("-fx-background-color: #333333; -fx-text-fill: #FFA500; -fx-background-radius: 10px;");
         for (TaskColumn column : columns) {
             columnPicker.getItems().add(column.getTitle());
         }
@@ -75,7 +77,7 @@ public class TaskDetailsForm {
 
         // Buttons
         Button saveButton = new Button("Save");
-        saveButton.setStyle("-fx-background-color: #FF4500; -fx-text-fill: white;");
+        saveButton.setStyle("-fx-background-color: #FF4500; -fx-text-fill: white; -fx-background-radius: 10px;");
         saveButton.setOnAction(e -> {
             task.setTitle(titleField.getText());
             task.setDescription(descriptionField.getText());
@@ -85,7 +87,7 @@ public class TaskDetailsForm {
         });
 
         Button moveButton = new Button("Move Task");
-        moveButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+        moveButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 10px;");
         moveButton.setOnAction(e -> {
             String selectedColumn = columnPicker.getValue();
             for (TaskColumn column : columns) {
@@ -103,7 +105,7 @@ public class TaskDetailsForm {
         });
 
         Button deleteButton = new Button("Delete Task");
-        deleteButton.setStyle("-fx-background-color: #D32F2F; -fx-text-fill: white;");
+        deleteButton.setStyle("-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-background-radius: 10px;");
         deleteButton.setOnAction(e -> {
             TaskColumn currentColumn = getCurrentColumn(task, columns);
             if (currentColumn != null) {
@@ -114,7 +116,7 @@ public class TaskDetailsForm {
         });
 
         Button closeButton = new Button("Close");
-        closeButton.setStyle("-fx-background-color: #666666; -fx-text-fill: white;");
+        closeButton.setStyle("-fx-background-color: #666666; -fx-text-fill: white; -fx-background-radius: 10px;");
         closeButton.setOnAction(e -> stage.close());
 
         HBox buttonBox = new HBox(10, saveButton, moveButton, deleteButton, closeButton);
